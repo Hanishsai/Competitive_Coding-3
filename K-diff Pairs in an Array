@@ -1,7 +1,29 @@
-/ Time Complexity :
-// Space Complexity :
-// Did this code successfully run on Leetcode :
-// Any problem you faced while coding this :
+/ Time Complexity : O(NlogN)+ O(N)
+// Space Complexity : O(1)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : Edge cases but solved
 
 
-// Your code here along with comments explaining your approach:
+// Your code here along with comments explaining your approach: Sorting the array and using 2 pointers to find unique pairs
+
+public class Solution {
+    public int findPairs(int[] nums, int k) {
+        Arrays.sort(nums);
+        int p1 = 0, p2 = 1, count = 0;
+        while (p1 < nums.length && p2 < nums.length) {
+            if (p1 == p2 || nums[p1] + k > nums[p2]) {
+                p2++;
+            }
+            else if (nums[p1] + k < nums[p2]) {
+                p1++;
+            }
+            else {
+                p1++;
+                count++;
+                while (p1 < nums.length && nums[p1] == nums[p1 - 1]) p1++;
+                p2 = Math.max(p2 + 1, p1 + 1);
+            }
+        }
+        return count;
+    }
+}
